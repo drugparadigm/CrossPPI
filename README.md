@@ -112,7 +112,7 @@ Check each prediction script for exact CLI options and required input formats.
 
 Below is the CrossPPI architecture diagram.
 
-![CrossPPI architecture](picture1.jpg)
+![CrossPPI architecture](Picture1.jpg)
 
 
 ## Model weights & outputs
