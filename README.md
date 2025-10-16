@@ -13,7 +13,7 @@ Table of contents
 - [Training](#training)
 - [Important files & scripts](#important-files--scripts)
 - [Architecture](#architecture)
-- [Model weights & outputs](#model-weights--outputs)
+
 
 ---
 
@@ -114,14 +114,4 @@ Below is the CrossPPI architecture diagram.
 
 ![CrossPPI architecture](Picture1.jpg)
 
-
-## Model weights & outputs
-- Model weights are saved to `save/weights/`.
-- After training you should have per-fold checkpoints and best models — use these for inference.
-
-Expected outputs (after full pipeline):
-- `data/embeddings_*` and `data/contact_maps_*` (generated)
-- `dataset/` (processed training data)
-- `save/weights/` (model checkpoints)
-- `results.csv` (predictions from batch prediction)
 
