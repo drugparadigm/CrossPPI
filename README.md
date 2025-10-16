@@ -2,8 +2,6 @@
 
 CrossPPI — a cross-attention based deep learning method for protein-protein binding affinity (pKD) prediction.
 
-This README explains repository layout, the required environment, data preparation steps (contact map and embedding generation using ESM-2), training and prediction steps, expected outputs, and where to place the architecture diagram (picture1.jpg).
-
 Table of contents
 - [Key features](#key-features)
 - [Repository structure](#repository-structure)
@@ -13,8 +11,6 @@ Table of contents
 - [Training](#training)
 - [Important files & scripts](#important-files--scripts)
 - [Architecture](#architecture)
-
-
 ---
 
 ## Key features
@@ -30,11 +26,9 @@ Table of contents
 - `model/` — model modules
   - `gnn_model_protein.py` — graph-based protein feature extraction
   - `cross_attention.py` — cross-attention and cross-fusion modules
-- `save/weights/` — saved model weights after training (not included in repo)
 - `dataset/` — processed dataset produced by training or preprocessing steps (not included)
 - Training & evaluation
   - `main_cv.py` — training script using cross-validation
-  - `predict.py`, `bactch_prediction.py`, `single_prediction.py`, `quick_test.py` — prediction scripts
 - Preprocessing
   - `contact_map.py` — contact map generation using ESM-2
   - `embedding.py` — sequence embedding generation using ESM-2
@@ -65,11 +59,6 @@ or follow official ESM install notes.
 python contact_map.py
 python embedding.py
 ```
-These steps will produce the following folders inside `data/`:
-- `contact_maps_ligands/`
-- `contact_maps_receptor/`
-- `embeddings_ligands/`
-- `embeddings_receptor/`
 
 Notes:
 - Generating embeddings/contact maps may be compute-intensive. Use a GPU and sufficient RAM/disk.
@@ -90,17 +79,11 @@ Train the CrossPPI model using cross-validation:
 python main_cv.py
 ```
 
-- The training script should create:
-  - `save/weights/` — model checkpoint files (per fold / best checkpoints)
-  - `dataset/` — processed dataset files used by training
-
 
 Check each prediction script for exact CLI options and required input formats.
 
 ## Important files & scripts
 - `main_cv.py` — Training with cross-validation and checkpoint saving.
-- `predict.py` — Batch prediction (CSV) wrapper.
-- `bactch_prediction.py` / `quick_test.py` / `single_prediction.py` — quick or single-instance prediction/testing scripts.
 - `contact_map.py` — Generates contact maps using ESM-2.
 - `embedding.py` — Generates protein embeddings using ESM-2.
 - `model/gnn_model_protein.py` — Protein graph feature extraction.
