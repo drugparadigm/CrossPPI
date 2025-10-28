@@ -85,10 +85,6 @@ model = PPI().to(device)
 
 # Load and rename state dictionary
 state_dict = torch.load("save/weights/model_cv_(updated)2_2_1.pth", map_location=torch.device(device))
-new_state_dict = {}
-for key, value in state_dict.items():
-    new_key = key.replace("rna", "ligand").replace("mole", "receptor")
-    new_state_dict[new_key] = value
 
 # Load the renamed state dictionary
 model.load_state_dict(new_state_dict)
