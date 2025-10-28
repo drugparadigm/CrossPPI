@@ -81,14 +81,21 @@ class PPI(nn.Module):
         
         return out
 # Initialize model
-model = PPI().to(device)
-
-# Load and rename state dictionary
-state_dict = torch.load("save/weights/model_cv_(updated)2_2_1.pth", map_location=torch.device(device))
-
-# Load the renamed state dictionary
-model.load_state_dict(new_state_dict)
-model.eval()
+model1 = PPI().to(device)
+model2 = PPI().to(device)
+model3 = PPI().to(device)
+model4 = PPI().to(device)
+model5 = PPI().to(device)
+model1.load_state_dict(torch.load("save/model_cv_(t300(5_fold))2_1_1.pth", map_location=torch.device(device)))
+model2.load_state_dict(torch.load("save/weights/model_cv_(updated)2_2_1.pth", map_location=torch.device(device)))
+model3.load_state_dict(torch.load("save/weights/model_cv_(updated)2_3_1.pth", map_location=torch.device(device)))
+model4.load_state_dict(torch.load("save/weights/model_cv_(updated)2_4_1.pth", map_location=torch.device(device)))
+model5.load_state_dict(torch.load("save/weights/model_cv_(updated)2_5_1.pth", map_location=torch.device(device)))
+model1.eval()
+model2.eval()
+model3.eval()
+model4.eval()
+model5.eval()
 
 # Input sequences
 ligand = "MGDKPIWEQIGSSFIQHYYQLFDNDRTQLGAIYIDASCLTWEGQQFQGKAAIVEKLSSLPFQKIQHSITAQDHQPTPDSCIISMVVGQLKADEDPIMGFHQMFLLKNINDAWVCTNDMFRLALHNFG"
@@ -105,5 +112,10 @@ print(processed_ligand)
 print(processed_receptor)
 
 # Run inference
-o = model(processed_ligand.to(device), processed_receptor.to(device)).item()
-print(o)
+o1 = model1(processed_ligand.to(device), processed_receptor.to(device)).item()
+o2 = model2(processed_ligand.to(device), processed_receptor.to(device)).item()
+o3 = model3(processed_ligand.to(device), processed_receptor.to(device)).item()
+o4 = model4(processed_ligand.to(device), processed_receptor.to(device)).item()
+o5 = model5(processed_ligand.to(device), processed_receptor.to(device)).item()
+
+print((o1+o2+o3+o4+o5)/5)
