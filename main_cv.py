@@ -151,7 +151,7 @@ for train_id, test_id in kf.split(ligand_dataset, ligand_dataset.y):
 
     print("Fold", fold)
     
-    # Combine RNA Dataset and Mole Dataset
+    # Combine ligand Dataset and receptor Dataset
     train_dataset = CustomDualDataset(ligand_dataset[train_id], receptor_dataset[train_id])
     test_dataset = CustomDualDataset(ligand_dataset[test_id], receptor_dataset[test_id])
 
@@ -171,10 +171,10 @@ for train_id, test_id in kf.split(ligand_dataset, ligand_dataset.y):
     for epo in range(EPOCH):
         # train
         train_loss = 0
-        for step, (batch_rna, batch_mole) in enumerate(train_loader):
+        for step, (batch_ligand, batch_receptor) in enumerate(train_loader):
             optimizer.zero_grad()
-            pre = model(batch_rna.to(device), batch_mole.to(device))
-            loss = loss_fct(pre.squeeze(dim=1), batch_rna.y)
+            pre = model(batch_ligand.to(device), batch_receptor.to(device))
+            loss = loss_fct(pre.squeeze(dim=1), batch_ligand.y)
             loss.backward()
             optimizer.step()
             train_loss = train_loss + loss
@@ -184,9 +184,9 @@ for train_id, test_id in kf.split(ligand_dataset, ligand_dataset.y):
             model.eval()
             y_label = []
             y_pred = []
-            for step, (batch_rna_test, batch_mole_test) in enumerate(test_loader):
-                label = Variable(torch.from_numpy(np.array(batch_rna_test.y))).float()
-                score = model(batch_rna_test.to(device), batch_mole_test.to(device))
+            for step, (batch_ligand_test, batch_receptor_test) in enumerate(test_loader):
+                label = Variable(torch.from_numpy(np.array(batch_ligand_test.y))).float()
+                score = model(batch_ligand_test.to(device), batch_receptor_test.to(device))
                 n = torch.squeeze(score, 1)
                 logits = torch.squeeze(score).detach().cpu().numpy()
                 label_ids = label.to('cpu').numpy()
