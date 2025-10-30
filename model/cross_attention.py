@@ -256,7 +256,7 @@ class Encoder_1d(nn.Module):
         # modality embedding; 0 for seq; 1 for stru;
         self.mod = nn.Embedding(2, hidden_size)
         
-        # # receptor type embedding; 0 for ligand; 1 for small receptor
+        # # receptor type embedding; 0 for ligand; 1 for receptor
         # self.type_e = nn.Embedding(2, 256)
         
     
@@ -312,7 +312,7 @@ class Encoder_1d(nn.Module):
         # stru_ligand_emb2 = self.type_e(stru_ligand_emb2)
         # hidden_states[2] = hidden_states[2] + stru_ligand_emb2
         
-        # # for small receptor
+        # # for receptor
         # seq_receptor_emb2 = torch.tensor([1]).expand(hidden_states[1].size()[0],hidden_states[1].size()[1]).to(device)
         # seq_receptor_emb2 = self.type_e(seq_receptor_emb2)
         # hidden_states[1] = hidden_states[1] + seq_receptor_emb2
